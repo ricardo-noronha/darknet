@@ -130,6 +130,18 @@ void make_window(char *name, int w, int h, int fullscreen)
     }
 }
 
+image buf_to_image_cv(char *buffer, int bufferLength)
+{
+    Mat m;
+    m = imdecode(cv::Mat(1, bufferLength, CV_8UC1, buffer), CV_LOAD_IMAGE_UNCHANGED);
+    if(!m.data){
+        fprintf(stderr, "Cannot decode image!\n");
+        return make_image(10,10,3);
+    }
+    image im = mat_to_image(m);
+    return im;
+}
+
 }
 
 #endif
